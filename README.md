@@ -8,7 +8,7 @@ This repository serves as a production-grade blueprint for implementing a **Meda
 - `notebooks/`: Modular ETL logic for the Bronze, Silver, and Gold layers.
 - `config/`: JSON/YAML configuration files to drive environment-based parameters.
 - `utils/`: Common library of reusable PySpark functions (Salting, Logging, Validation).
-- `cicd/`: **Azure DevOps YAML pipelines for automated code promotion.**
+- `cicd/`: Azure DevOps YAML pipelines for automated code promotion.
 
 ## 🚀 Architectural Layers
 1. **Bronze (Raw):** Low-latency ingestion from ADLS Gen2 using **Autoloader**.
