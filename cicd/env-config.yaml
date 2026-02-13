@@ -1,0 +1,10 @@
+environments:
+  dev:
+    workspace_url: "https://adb-dev.azuredatabricks.net"
+    cluster_id: "0000-111111-dev1"
+    resource_group: "rg-data-dev"
+  
+  prod:
+    workspace_url: "https://adb-prod.azuredatabricks.net"
+    cluster_id: "0000-222222-prod1"
+    resource_group: "rg-data-prod"
