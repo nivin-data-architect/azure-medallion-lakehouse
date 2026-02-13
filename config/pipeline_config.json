@@ -1,0 +1,19 @@
+{
+  "project_name": "SalesAnalytics",
+  "environments": {
+    "dev": {
+      "landing_path": "/mnt/raw/dev/sales/",
+      "checkpoint_path": "/mnt/checkpoints/dev/sales/",
+      "catalog": "dev_catalog"
+    },
+    "prod": {
+      "landing_path": "/mnt/raw/prod/sales/",
+      "checkpoint_path": "/mnt/checkpoints/prod/sales/",
+      "catalog": "prod_catalog"
+    }
+  },
+  "retry_policy": {
+    "max_retries": 3,
+    "delay_seconds": 30
+  }
+}
