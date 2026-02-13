@@ -1,0 +1,42 @@
+# Azure DevOps Pipeline for Data Engineering Promotion
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+
+variables:
+  - group: databricks-prod-vg  # Linking to Azure Key Vault secrets
+
+stages:
+- stage: Build_and_Test
+  displayName: 'Quality Gate'
+  jobs:
+  - job: Run_Unit_Tests
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.9'
+    - script: |
+        pip install pytest pyspark
+        pytest utils/test_common_functions.py
+      displayName: 'Execute PySpark Unit Tests'
+
+- stage: Deploy_to_Production
+  displayName: 'Production Promotion'
+  dependsOn: Build_and_Test
+  condition: succeeded()
+  jobs:
+  - job: Deploy_Databricks_Notebooks
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: databricksDeploy@0  # Using Databricks CLI task
+      inputs:
+        authType: 'servicePrincipal'
+        localPath: './notebooks'
+        databricksPath: '/Shared/Production/Medallion'
+        databricksInstance: $(DATABRICKS_URL)
+        databricksClientSecret: $(DATABRICKS_SECRET)
